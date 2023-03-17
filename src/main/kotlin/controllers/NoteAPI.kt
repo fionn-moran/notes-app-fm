@@ -67,13 +67,10 @@ class NoteAPI(serializerType: Serializer) {
     }
 
     fun numberOfArchivedNotes(): Int {
-        var counter = 0
-        for (note in notes) {
-            if (note.isNoteArchived) {
-                counter++
-            }
-        }
-        return counter
+        return notes.stream()
+            .filter{note: Note -> note.isNoteArchived}
+            .count()
+            .toInt()
     }
 
     fun numberOfActiveNotes(): Int {

@@ -24,6 +24,8 @@ fun mainMenu() : Int {
          > |   2) List all notes            |
          > |   3) Update a note             |
          > |   4) Delete a note             |
+         > |   5) List active notes         |
+         > |   6) List Archived Notes       |
          > ----------------------------------
          > |   0) Exit                      |
          > ----------------------------------
@@ -38,6 +40,8 @@ fun runMenu() {
             2 -> listNotes()
             3 -> updateNote()
             4 -> deleteNote()
+            5 -> listActiveNotes()
+            6 -> listArchivedNotes()
             0 -> exitApp()
             else -> println("invalid option entered: ${option}")
         }
@@ -68,6 +72,16 @@ fun updateNote() {
 
 fun deleteNote() {
     logger.info { "deleteNote() function invoked" }
+}
+
+fun listActiveNotes() {
+    //logger.info { "listActiveNotes() function invoked" }
+    println(noteAPI.listActiveNotes())
+}
+
+fun listArchivedNotes() {
+    //logger.info { "listArchivedNotes() function invoked" }
+    println(noteAPI.listArchivedNotes())
 }
 
 fun exitApp() {

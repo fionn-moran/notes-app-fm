@@ -33,6 +33,7 @@ fun mainMenu() : Int {
          > |   4) Delete a note             |
          > |   5) List active notes         |
          > |   6) List Archived Notes       |
+         > |   7) Archive Note              |
          > ----------------------------------
          > |  20) Save Notes                |
          > |  21) Load Notes                |
@@ -51,6 +52,7 @@ fun runMenu() {
             4 -> deleteNote()
             5 -> listActiveNotes()
             6 -> listArchivedNotes()
+            7 -> archiveNote()
             20 -> save()
             21 -> load()
             0 -> exitApp()
@@ -143,7 +145,6 @@ fun load() {
         System.err.println("Error reading from file: $e")
     }
 }
-
 
 fun exitApp() {
     logger.info { "exitApp() function invoked" }

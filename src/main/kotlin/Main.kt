@@ -28,12 +28,10 @@ fun mainMenu() : Int {
          > ----------------------------------
          > | NOTE MENU                      |
          > |   1) Add a note                |
-         > |   2) List all notes            |
+         > |   2) List Notes                |
          > |   3) Update a note             |
          > |   4) Delete a note             |
-         > |   5) List active notes         |
-         > |   6) List Archived Notes       |
-         > |   7) Archive Note              |
+         > |   5) Archive Note              |
          > ----------------------------------
          > |  20) Save Notes                |
          > |  21) Load Notes                |
@@ -50,9 +48,7 @@ fun runMenu() {
             2 -> listNotes()
             3 -> updateNote()
             4 -> deleteNote()
-            5 -> listActiveNotes()
-            6 -> listArchivedNotes()
-            7 -> archiveNote()
+            5 -> archiveNote()
             20 -> save()
             21 -> load()
             0 -> exitApp()
@@ -74,9 +70,26 @@ fun addNote(){
     }
 }
 
-fun listNotes(){
-    //logger.info { "listNotes() function invoked" }
-    println(noteAPI.listAllNotes())
+fun listNotes() {
+    if (noteAPI.numberOfNotes() > 0) {
+        val option = readNextInt(
+            """
+                  > --------------------------------
+                  > |   1) View ALL notes          |
+                  > |   2) View ACTIVE notes       |
+                  > |   3) View ARCHIVED notes     |
+                  > --------------------------------
+         > ==>> """.trimMargin(">"))
+
+        when (option) {
+            1 -> listAllNotes();
+            2 -> listActiveNotes();
+            3 -> listArchivedNotes();
+            else -> println("Invalid option entered: " + option);
+        }
+    } else {
+        println("Option Invalid - No notes stored");
+    }
 }
 
 fun updateNote() {
@@ -158,6 +171,10 @@ fun archiveNote() {
             println("Archive NOT Successful")
         }
     }
+}
+
+fun listAllNotes() {
+    println(noteAPI.listAllNotes())
 }
 
 fun exitApp() {

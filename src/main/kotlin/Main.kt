@@ -146,6 +146,20 @@ fun load() {
     }
 }
 
+fun archiveNote() {
+    listActiveNotes()
+    if (noteAPI.numberOfActiveNotes() > 0) {
+        //only ask the user to choose the note to archive if active notes exist
+        val indexToArchive = readNextInt("Enter the index of the note to archive: ")
+        //pass the index of the note to NoteAPI for archiving and check for success.
+        if (noteAPI.archiveNote(indexToArchive)) {
+            println("Archive Successful!")
+        } else {
+            println("Archive NOT Successful")
+        }
+    }
+}
+
 fun exitApp() {
     logger.info { "exitApp() function invoked" }
     exit(0)

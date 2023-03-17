@@ -1,14 +1,16 @@
 import controllers.NoteAPI
 import models.Note
 import mu.KotlinLogging
+import persistence.XMLSerializer
 import utils.ScannerInput
 import utils.ScannerInput.readNextInt
 import utils.ScannerInput.readNextLine
+import java.io.File
 import java.lang.System.exit
 
 private val logger = KotlinLogging.logger {}
 
-private val noteAPI = NoteAPI()
+private val noteAPI = NoteAPI(XMLSerializer(File("notes.xml")))
 
 
 fun main(args: Array<String>) {
@@ -27,6 +29,8 @@ fun mainMenu() : Int {
          > |   5) List active notes         |
          > |   6) List Archived Notes       |
          > ----------------------------------
+         > |  20) Save Notes                |
+         > |  21) Load Notes                |
          > |   0) Exit                      |
          > ----------------------------------
          > ==>> """.trimMargin(">"))
@@ -42,6 +46,8 @@ fun runMenu() {
             4 -> deleteNote()
             5 -> listActiveNotes()
             6 -> listArchivedNotes()
+            20 -> save()
+            21 -> load()
             0 -> exitApp()
             else -> println("invalid option entered: ${option}")
         }
@@ -116,6 +122,23 @@ fun listArchivedNotes() {
     //logger.info { "listArchivedNotes() function invoked" }
     println(noteAPI.listArchivedNotes())
 }
+
+fun save() {
+    try {
+        noteAPI.store()
+    } catch (e: Exception) {
+        System.err.println("Error writing to file: $e")
+    }
+}
+
+fun load() {
+    try {
+        noteAPI.load()
+    } catch (e: Exception) {
+        System.err.println("Error reading from file: $e")
+    }
+}
+
 
 fun exitApp() {
     logger.info { "exitApp() function invoked" }

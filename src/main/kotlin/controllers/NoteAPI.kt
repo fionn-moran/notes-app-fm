@@ -22,19 +22,11 @@ class NoteAPI(serializerType: Serializer) {
             .joinToString (separator ="\n") { note ->
                 notes. indexOf(note). toString() + ": " + note. toString() }
 
-    fun listActiveNotes(): String {
-        return if (numberOfActiveNotes() == 0) {
-            "No active notes stored"
-        } else {
-            var listOfActiveNotes = ""
-            for (note in notes) {
-                if (!note.isNoteArchived) {
-                    listOfActiveNotes += "${notes.indexOf(note)}: $note \n"
-                }
-            }
-            listOfActiveNotes
-        }
-    }
+    fun listActiveNotes(): String =
+        if (numberOfActiveNotes() == 0) "No active notes stored"
+        else notes.filter { note -> !note.isNoteArchived}
+            .joinToString (separator ="\n") { note ->
+                notes. indexOf(note). toString() + ": " + note. toString() }
 
     fun listNotesBySelectedPriority(priority: Int): String {
         return if (notes.isEmpty()) {

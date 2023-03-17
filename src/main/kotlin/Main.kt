@@ -13,6 +13,8 @@ private val logger = KotlinLogging.logger {}
 private val noteAPI = NoteAPI(XMLSerializer(File("notes.xml")))
 
 
+
+
 fun main(args: Array<String>) {
     runMenu()
 }

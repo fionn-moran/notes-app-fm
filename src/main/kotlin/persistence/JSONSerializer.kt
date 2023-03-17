@@ -1,4 +1,6 @@
 package persistence
 
-class JSONSerializer {
+
+class JSONSerializer() {
+
 }

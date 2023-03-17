@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="controllers.NoteAPITest" tests="7" skipped="0" failures="0" errors="0" timestamp="2023-03-17T20:29:04" hostname="MacBook-Pro.fritz.box" time="0.077">
+<testsuite name="controllers.NoteAPITest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-03-17T20:42:54" hostname="MacBook-Pro.fritz.box" time="0.316">
   <properties/>
-  <testcase name="listActiveNotes returns no active notes stored when ArrayList is empty()" classname="controllers.NoteAPITest" time="0.041"/>
-  <testcase name="listNotesBySelectedPriority returns No Notes when ArrayList is empty()" classname="controllers.NoteAPITest" time="0.001"/>
-  <testcase name="listActiveNotes returns active notes when ArrayList has active notes stored()" classname="controllers.NoteAPITest" time="0.003"/>
-  <testcase name="listArchivedNotes returns no archived notes when ArrayList is empty()" classname="controllers.NoteAPITest" time="0.001"/>
-  <testcase name="listNotesBySelectedPriority returns all notes that match that priority when notes of that priority exist()" classname="controllers.NoteAPITest" time="0.025"/>
-  <testcase name="listNotesBySelectedPriority returns no notes when no notes of that priority exist()" classname="controllers.NoteAPITest" time="0.001"/>
-  <testcase name="listArchivedNotes returns archived notes when ArrayList has archived notes stored()" classname="controllers.NoteAPITest" time="0.001"/>
+  <testcase name="saving and loading an empty collection in JSON doesn't crash app()" classname="controllers.NoteAPITest" time="0.316"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

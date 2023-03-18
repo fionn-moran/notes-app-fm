@@ -22,11 +22,15 @@ class NoteAPI(serializerType: Serializer) {
 
     fun listActiveNotes(): String =
         if  (numberOfActiveNotes() == 0)  "No active notes stored"
-        else formatListString(notes.filter { note -> !note.isNoteArchived})
+        else formatListString(notes.filter { note -> !note.isNoteArchived || !note.isNoteFinished})
 
     fun listFavouritedNotes(): String =
         if  (numberOfFavouritedNotes() == 0)  "No favourited notes stored"
         else formatListString(notes.filter { note -> note.isNoteFavourited})
+
+    fun listFinishedNotes(): String =
+        if  (numberOfFinishedNotes() == 0)  "No notes marked as finished"
+        else formatListString(notes.filter { note -> note.isNoteFinished})
 
     fun listNotesBySelectedPriority(priority: Int): String =
         if (notes.isEmpty()) "No notes stored"
@@ -62,6 +66,10 @@ class NoteAPI(serializerType: Serializer) {
 
     fun numberOfFavouritedNotes(): Int = notes.count {
             note: Note -> note.isNoteFavourited
+    }
+
+    fun numberOfFinishedNotes(): Int = notes.count {
+            note: Note -> note.isNoteFinished
     }
 
 

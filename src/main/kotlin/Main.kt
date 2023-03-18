@@ -87,6 +87,7 @@ fun listNotes() {
                   > |   2) View ACTIVE notes       |
                   > |   3) View ARCHIVED notes     |
                   > |   4) List FAVOURITED notes   |
+                  > |   5) List FINISHED notes     |
                   > --------------------------------
          > ==>> """.trimMargin(">"))
 
@@ -94,7 +95,8 @@ fun listNotes() {
             1 -> listAllNotes();
             2 -> listActiveNotes();
             3 -> listArchivedNotes();
-            4 -> listFavouritedNotes()
+            4 -> listFavouritedNotes();
+            5 -> listFinishedNotes();
             else -> println("Invalid option entered: " + option);
         }
     } else {
@@ -157,6 +159,11 @@ fun listArchivedNotes() {
 fun listFavouritedNotes() {
     //logger.info { "listArchivedNotes() function invoked" }
     println(noteAPI.listFavouritedNotes())
+}
+
+fun listFinishedNotes() {
+    //logger.info { "listArchivedNotes() function invoked" }
+    println(noteAPI.listFinishedNotes())
 }
 
 fun save() {

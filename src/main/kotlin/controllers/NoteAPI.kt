@@ -84,6 +84,8 @@ class NoteAPI(serializerType: Serializer) {
             foundNote.noteTitle = note.noteTitle
             foundNote.notePriority = note.notePriority
             foundNote.noteCategory = note.noteCategory
+            foundNote.noteBody = note.noteBody
+            foundNote.noteDate = note.noteDate
             return true
         }
 

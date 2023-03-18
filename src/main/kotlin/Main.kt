@@ -65,7 +65,9 @@ fun addNote(){
     val noteTitle = readNextLine("Enter a title for the note: ")
     val notePriority = readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
     val noteCategory = readNextLine("Enter a category for the note: ")
-    val isAdded = noteAPI.add(Note(noteTitle, notePriority, noteCategory, false, false))
+    val noteBody = readNextLine("Enter your note: ")
+    val noteDate = readNextLine("Enter the note date: ")
+    val isAdded = noteAPI.add(Note(noteTitle, notePriority, noteCategory, noteBody, noteDate, false, false))
 
     if (isAdded) {
         println("Added Successfully")
@@ -108,9 +110,10 @@ fun updateNote() {
             val noteTitle = readNextLine("Enter a title for the note: ")
             val notePriority = readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
             val noteCategory = readNextLine("Enter a category for the note: ")
-
+            val noteBody = readNextLine("Enter your note: ")
+            val noteDate = readNextLine("Enter the note date: ")
             //pass the index of the note and the new note details to NoteAPI for updating and check for success.
-            if (noteAPI.updateNote(indexToUpdate, Note(noteTitle, notePriority, noteCategory, false, false))){
+            if (noteAPI.updateNote(indexToUpdate, Note(noteTitle, notePriority, noteCategory, noteBody, noteDate, false, false))){
                 println("Update Successful")
             } else {
                 println("Update Failed")
@@ -203,7 +206,7 @@ fun listAllNotes() {
 }
 
 fun searchNotes() {
-    val searchTitle = readNextLine("Enter the desc to search by: ")
+    val searchTitle = readNextLine("Enter the title to search by: ")
     val searchResults = noteAPI.searchByTitle(searchTitle)
     if (searchResults.isEmpty()) {
         println("No notes found")

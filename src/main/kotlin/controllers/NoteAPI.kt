@@ -13,40 +13,24 @@ class NoteAPI(serializerType: Serializer) {
 
     fun listAllNotes(): String =
         if  (notes.isEmpty()) "No notes stored"
-        else notes.joinToString (separator = "\n") { note ->
-            notes.indexOf(note).toString() + ": " + note.toString() }
+        else formatListString(notes)
+
 
     fun listArchivedNotes(): String =
-        if (numberOfArchivedNotes() == 0) "No archived notes stored"
-        else notes.filter { note -> note.isNoteArchived}
-            .joinToString (separator ="\n") { note ->
-                notes. indexOf(note). toString() + ": " + note. toString() }
+        if  (numberOfArchivedNotes() == 0) "No archived notes stored"
+        else formatListString(notes.filter { note -> note.isNoteArchived})
 
     fun listActiveNotes(): String =
-        if (numberOfActiveNotes() == 0) "No active notes stored"
-        else notes.filter { note -> !note.isNoteArchived}
-            .joinToString (separator ="\n") { note ->
-                notes. indexOf(note). toString() + ": " + note. toString() }
+        if  (numberOfActiveNotes() == 0)  "No active notes stored"
+        else formatListString(notes.filter { note -> !note.isNoteArchived})
 
-    fun listNotesBySelectedPriority(priority: Int): String {
-        return if (notes.isEmpty()) {
-            "No notes stored"
-        } else {
-            var listOfNotes = ""
-            for (i in notes.indices) {
-                if (notes[i].notePriority == priority) {
-                    listOfNotes +=
-                        """$i: ${notes[i]}
-                        """.trimIndent()
-                }
-            }
-            if (listOfNotes.equals("")) {
-                "No notes with priority: $priority"
-            } else {
-                "${numberOfNotesByPriority(priority)} notes with priority $priority: $listOfNotes"
-            }
+    fun listNotesBySelectedPriority(priority: Int): String =
+        if (notes.isEmpty()) "No notes stored"
+        else {
+            val listOfNotes = formatListString(notes.filter{ note -> note.notePriority == priority})
+            if (listOfNotes.equals("")) "No notes with priority: $priority"
+            else "${numberOfNotesByPriority(priority)} notes with priority $priority: $listOfNotes"
         }
-    }
 
     fun numberOfNotes(): Int {
         return notes.size
@@ -63,26 +47,18 @@ class NoteAPI(serializerType: Serializer) {
         return (index >= 0 && index < list.size)
     }
 
-    fun numberOfArchivedNotes(): Int {
-        return notes.stream()
-            .filter{note: Note -> note.isNoteArchived}
-            .count()
-            .toInt()
-    }
-
-    fun numberOfActiveNotes(): Int {
-        return notes.stream()
-            .filter{note: Note -> !note.isNoteArchived}
-            .count()
-            .toInt()
+    fun numberOfArchivedNotes(): Int = notes.count {
+            note: Note -> note.isNoteArchived
     }
 
 
-    fun numberOfNotesByPriority(priority: Int): Int {
-        return notes.stream()
-            .filter{p: Note -> p.notePriority == priority}
-            .count()
-            .toInt()
+    fun numberOfActiveNotes(): Int = notes.count {
+            note: Note -> !note.isNoteArchived
+    }
+
+
+    fun numberOfNotesByPriority(priority: Int): Int = notes.count {
+        note: Note -> note.notePriority == priority
     }
 
     fun deleteNote(indexToDelete: Int): Note? {
@@ -132,9 +108,14 @@ class NoteAPI(serializerType: Serializer) {
         return false
     }
 
-    fun searchByTitle(searchString: String) =
-        notes.filter {note -> note.noteTitle.contains(searchString, ignoreCase = true)
-        } .joinToString (separator = "\n") { note ->
-            notes.indexOf(note).toString() + ": " + note.toString()
-        }
+    fun searchByTitle (searchString : String) =
+        formatListString(
+            notes.filter { note -> note.noteTitle.contains(searchString, ignoreCase = true) })
+
+
+    private fun formatListString(notesToFormat : List<Note>) : String =
+        notesToFormat
+            .joinToString (separator = "\n") { note ->
+                notes.indexOf(note).toString() + ": " + note.toString() }
+
 }

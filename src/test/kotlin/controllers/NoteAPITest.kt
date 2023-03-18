@@ -27,11 +27,11 @@ class NoteAPITest {
 
     @BeforeEach
     fun setup(){
-        learnKotlin = Note("Learning Kotlin", 5, "College", false)
-        summerHoliday = Note("Summer Holiday to France", 1, "Holiday", false)
-        codeApp = Note("Code App", 4, "Work", true)
-        testApp = Note("Test App", 4, "Work", false)
-        swim = Note("Swim - Pool", 3, "Hobby", true)
+        learnKotlin = Note("Learning Kotlin", 5, "College", false, false)
+        summerHoliday = Note("Summer Holiday to France", 1, "Holiday", false, false)
+        codeApp = Note("Code App", 4, "Work", true, true)
+        testApp = Note("Test App", 4, "Work", false, false)
+        swim = Note("Swim - Pool", 3, "Hobby", true, true)
 
         //adding 5 Note to the notes api
         populatedNotes!!.add(learnKotlin!!)
@@ -56,7 +56,7 @@ class NoteAPITest {
     inner class AddNotes {
         @Test
         fun `adding a Note to a populated list adds to ArrayList`() {
-            val newNote = Note("Study Lambdas", 1, "College", false)
+            val newNote = Note("Study Lambdas", 1, "College", false, true)
             assertEquals(5, populatedNotes!!.numberOfNotes())
             assertTrue(populatedNotes!!.add(newNote))
             assertEquals(6, populatedNotes!!.numberOfNotes())
@@ -65,7 +65,7 @@ class NoteAPITest {
 
         @Test
         fun `adding a Note to an empty list adds to ArrayList`() {
-            val newNote = Note("Study Lambdas", 1, "College", false)
+            val newNote = Note("Study Lambdas", 1, "College", false, false)
             assertEquals(0, emptyNotes!!.numberOfNotes())
             assertTrue(emptyNotes!!.add(newNote))
             assertEquals(1, emptyNotes!!.numberOfNotes())
@@ -129,6 +129,25 @@ class NoteAPITest {
             assertFalse(archivedNotesString.contains("summer holiday"))
             assertFalse(archivedNotesString.contains("test app"))
             assertTrue(archivedNotesString.contains("swim"))
+        }
+
+        @Test
+        fun `listFavouritedNotes returns no favourited notes when ArrayList is empty`() {
+            assertEquals(0, emptyNotes!!.numberOfFavouritedNotes())
+            assertTrue(
+                emptyNotes!!.listFavouritedNotes().lowercase().contains("no favourited notes")
+            )
+        }
+
+        @Test
+        fun `listFavouritedNotes returns favourited notes when ArrayList has favourited notes stored`() {
+            assertEquals(2, populatedNotes!!.numberOfFavouritedNotes())
+            val favouritedNotesString = populatedNotes!!.listFavouritedNotes().lowercase(Locale.getDefault())
+            assertFalse(favouritedNotesString.contains("learning kotlin"))
+            assertTrue(favouritedNotesString.contains("code app"))
+            assertFalse(favouritedNotesString.contains("summer holiday"))
+            assertFalse(favouritedNotesString.contains("test app"))
+            assertTrue(favouritedNotesString.contains("swim"))
         }
 
         @Test
@@ -196,9 +215,9 @@ class NoteAPITest {
     inner class UpdateNotes {
         @Test
         fun `updating a note that does not exist returns false`(){
-            assertFalse(populatedNotes!!.updateNote(6, Note("Updating Note", 2, "Work", false)))
-            assertFalse(populatedNotes!!.updateNote(-1, Note("Updating Note", 2, "Work", false)))
-            assertFalse(emptyNotes!!.updateNote(0, Note("Updating Note", 2, "Work", false)))
+            assertFalse(populatedNotes!!.updateNote(6, Note("Updating Note", 2, "Work", false, false)))
+            assertFalse(populatedNotes!!.updateNote(-1, Note("Updating Note", 2, "Work", false, true)))
+            assertFalse(emptyNotes!!.updateNote(0, Note("Updating Note", 2, "Work", false, false)))
         }
 
         @Test
@@ -210,7 +229,7 @@ class NoteAPITest {
             assertEquals("Hobby", populatedNotes!!.findNote(4)!!.noteCategory)
 
             //update note 5 with new information and ensure contents updated successfully
-            assertTrue(populatedNotes!!.updateNote(4, Note("Updating Note", 2, "College", false)))
+            assertTrue(populatedNotes!!.updateNote(4, Note("Updating Note", 2, "College", false, false)))
             assertEquals("Updating Note", populatedNotes!!.findNote(4)!!.noteTitle)
             assertEquals(2, populatedNotes!!.findNote(4)!!.notePriority)
             assertEquals("College", populatedNotes!!.findNote(4)!!.noteCategory)
@@ -321,6 +340,29 @@ class NoteAPITest {
     }
 
     @Nested
+    inner class FavouritedNotes {
+        @Test
+        fun `favouriting a note that does not exist returns false`(){
+            assertFalse(populatedNotes!!.favouriteNote(6))
+            assertFalse(populatedNotes!!.favouriteNote(-1))
+            assertFalse(emptyNotes!!.favouriteNote(0))
+        }
+
+        @Test
+        fun `favouriting an already favourited note returns false`(){
+            assertTrue(populatedNotes!!.findNote(2)!!.isNoteFavourited)
+            assertFalse(populatedNotes!!.favouriteNote(2))
+        }
+
+        @Test
+        fun `favouriting any note that exists returns true and favourites`() {
+            assertFalse(populatedNotes!!.findNote(1)!!.isNoteFavourited)
+            assertTrue(populatedNotes!!.favouriteNote(1))
+            assertTrue(populatedNotes!!.findNote(1)!!.isNoteFavourited)
+        }
+    }
+
+    @Nested
     inner class CountingMethods {
 
         @Test
@@ -339,6 +381,12 @@ class NoteAPITest {
         fun numberOfActiveNotesCalculatedCorrectly() {
             assertEquals(3, populatedNotes!!.numberOfActiveNotes())
             assertEquals(0, emptyNotes!!.numberOfActiveNotes())
+        }
+
+        @Test
+        fun numberOfFavouritedNotesCalculatedCorrectly() {
+            assertEquals(2, populatedNotes!!.numberOfFavouritedNotes())
+            assertEquals(0, emptyNotes!!.numberOfFavouritedNotes())
         }
 
         @Test

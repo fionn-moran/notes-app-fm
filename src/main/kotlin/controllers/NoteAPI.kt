@@ -24,6 +24,10 @@ class NoteAPI(serializerType: Serializer) {
         if  (numberOfActiveNotes() == 0)  "No active notes stored"
         else formatListString(notes.filter { note -> !note.isNoteArchived})
 
+    fun listFavouritedNotes(): String =
+        if  (numberOfFavouritedNotes() == 0)  "No favourited notes stored"
+        else formatListString(notes.filter { note -> note.isNoteFavourited})
+
     fun listNotesBySelectedPriority(priority: Int): String =
         if (notes.isEmpty()) "No notes stored"
         else {
@@ -54,6 +58,10 @@ class NoteAPI(serializerType: Serializer) {
 
     fun numberOfActiveNotes(): Int = notes.count {
             note: Note -> !note.isNoteArchived
+    }
+
+    fun numberOfFavouritedNotes(): Int = notes.count {
+            note: Note -> note.isNoteFavourited
     }
 
 
@@ -102,6 +110,17 @@ class NoteAPI(serializerType: Serializer) {
             val noteToArchive = notes[indexToArchive]
             if (!noteToArchive.isNoteArchived) {
                 noteToArchive.isNoteArchived = true
+                return true
+            }
+        }
+        return false
+    }
+
+    fun favouriteNote(indexToFavourite: Int): Boolean {
+        if (isValidIndex(indexToFavourite)) {
+            val noteToFavourite = notes[indexToFavourite]
+            if (!noteToFavourite.isNoteFavourited) {
+                noteToFavourite.isNoteFavourited = true
                 return true
             }
         }

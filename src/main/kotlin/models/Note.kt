@@ -1,8 +1,5 @@
 package models
 
-import java.text.DateFormat
-import java.util.Date
-
 data class Note(
     var noteTitle: String,
     var notePriority: Int,

@@ -4,6 +4,8 @@
       <noteTitle>Test App</noteTitle>
       <notePriority>4</notePriority>
       <noteCategory>Work</noteCategory>
+      <noteBody>test functionality and view UI</noteBody>
+      <noteDate>12/3/2023</noteDate>
       <isNoteArchived>false</isNoteArchived>
       <isNoteFavourited>false</isNoteFavourited>
     </models.Note>
@@ -11,6 +13,8 @@
       <noteTitle>Swim - Pool</noteTitle>
       <notePriority>3</notePriority>
       <noteCategory>Hobby</noteCategory>
+      <noteBody>Practice front-stroke</noteBody>
+      <noteDate>1/5/2023</noteDate>
       <isNoteArchived>true</isNoteArchived>
       <isNoteFavourited>true</isNoteFavourited>
     </models.Note>
@@ -18,6 +22,8 @@
       <noteTitle>Summer Holiday to France</noteTitle>
       <notePriority>1</notePriority>
       <noteCategory>Holiday</noteCategory>
+      <noteBody>holiday, food, sun</noteBody>
+      <noteDate>10/6/2022</noteDate>
       <isNoteArchived>false</isNoteArchived>
       <isNoteFavourited>false</isNoteFavourited>
     </models.Note>

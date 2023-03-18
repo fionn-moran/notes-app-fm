@@ -29,8 +29,8 @@ class NoteAPITest {
     fun setup(){
         learnKotlin = Note("Learning Kotlin", 5, "College", false, false)
         summerHoliday = Note("Summer Holiday to France", 1, "Holiday", false, false)
-        codeApp = Note("Code App", 4, "Work", true, false)
-        testApp = Note("Test App", 4, "Work", false, true)
+        codeApp = Note("Code App", 4, "Work", true, true)
+        testApp = Note("Test App", 4, "Work", false, false)
         swim = Note("Swim - Pool", 3, "Hobby", true, true)
 
         //adding 5 Note to the notes api
@@ -129,6 +129,25 @@ class NoteAPITest {
             assertFalse(archivedNotesString.contains("summer holiday"))
             assertFalse(archivedNotesString.contains("test app"))
             assertTrue(archivedNotesString.contains("swim"))
+        }
+
+        @Test
+        fun `listFavouritedNotes returns no favourited notes when ArrayList is empty`() {
+            assertEquals(0, emptyNotes!!.numberOfFavouritedNotes())
+            assertTrue(
+                emptyNotes!!.listFavouritedNotes().lowercase().contains("no favourited notes")
+            )
+        }
+
+        @Test
+        fun `listFavouritedNotes returns favourited notes when ArrayList has favourited notes stored`() {
+            assertEquals(2, populatedNotes!!.numberOfFavouritedNotes())
+            val favouritedNotesString = populatedNotes!!.listFavouritedNotes().lowercase(Locale.getDefault())
+            assertFalse(favouritedNotesString.contains("learning kotlin"))
+            assertTrue(favouritedNotesString.contains("code app"))
+            assertFalse(favouritedNotesString.contains("summer holiday"))
+            assertFalse(favouritedNotesString.contains("test app"))
+            assertTrue(favouritedNotesString.contains("swim"))
         }
 
         @Test
@@ -321,6 +340,29 @@ class NoteAPITest {
     }
 
     @Nested
+    inner class FavouritedNotes {
+        @Test
+        fun `favouriting a note that does not exist returns false`(){
+            assertFalse(populatedNotes!!.favouriteNote(6))
+            assertFalse(populatedNotes!!.favouriteNote(-1))
+            assertFalse(emptyNotes!!.favouriteNote(0))
+        }
+
+        @Test
+        fun `favouriting an already favourited note returns false`(){
+            assertTrue(populatedNotes!!.findNote(2)!!.isNoteFavourited)
+            assertFalse(populatedNotes!!.favouriteNote(2))
+        }
+
+        @Test
+        fun `favouriting any note that exists returns true and favourites`() {
+            assertFalse(populatedNotes!!.findNote(1)!!.isNoteFavourited)
+            assertTrue(populatedNotes!!.favouriteNote(1))
+            assertTrue(populatedNotes!!.findNote(1)!!.isNoteFavourited)
+        }
+    }
+
+    @Nested
     inner class CountingMethods {
 
         @Test
@@ -339,6 +381,12 @@ class NoteAPITest {
         fun numberOfActiveNotesCalculatedCorrectly() {
             assertEquals(3, populatedNotes!!.numberOfActiveNotes())
             assertEquals(0, emptyNotes!!.numberOfActiveNotes())
+        }
+
+        @Test
+        fun numberOfFavouritedNotesCalculatedCorrectly() {
+            assertEquals(2, populatedNotes!!.numberOfFavouritedNotes())
+            assertEquals(0, emptyNotes!!.numberOfFavouritedNotes())
         }
 
         @Test

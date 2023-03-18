@@ -5,7 +5,7 @@
       <notePriority>4</notePriority>
       <noteCategory>Work</noteCategory>
       <isNoteArchived>false</isNoteArchived>
-      <isNoteFavourited>true</isNoteFavourited>
+      <isNoteFavourited>false</isNoteFavourited>
     </models.Note>
     <models.Note>
       <noteTitle>Swim - Pool</noteTitle>

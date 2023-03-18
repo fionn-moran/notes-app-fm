@@ -151,6 +151,25 @@ class NoteAPITest {
         }
 
         @Test
+        fun `listFinishedNotes returns no finished notes stored when ArrayList is empty`() {
+            assertEquals(0, emptyNotes!!.numberOfFinishedNotes())
+            assertTrue(
+                emptyNotes!!.listFinishedNotes().lowercase().contains("no finished notes")
+            )
+        }
+
+        @Test
+        fun `listFinishedNotes returns finished notes when ArrayList has favourited notes stored`() {
+            assertEquals(2, populatedNotes!!.numberOfFinishedNotes())
+            val finishedNotesString = populatedNotes!!.listFinishedNotes().lowercase(Locale.getDefault())
+            assertFalse(finishedNotesString.contains("learning kotlin"))
+            assertTrue(finishedNotesString.contains("code app"))
+            assertFalse(finishedNotesString.contains("summer holiday"))
+            assertFalse(finishedNotesString.contains("test app"))
+            assertTrue(finishedNotesString.contains("swim"))
+        }
+
+        @Test
         fun `listNotesBySelectedPriority returns No Notes when ArrayList is empty`() {
             assertEquals(0, emptyNotes!!.numberOfNotes())
             assertTrue(emptyNotes!!.listNotesBySelectedPriority(1).lowercase().contains("no notes")
@@ -359,6 +378,29 @@ class NoteAPITest {
             assertFalse(populatedNotes!!.findNote(1)!!.isNoteFavourited)
             assertTrue(populatedNotes!!.favouriteNote(1))
             assertTrue(populatedNotes!!.findNote(1)!!.isNoteFavourited)
+        }
+    }
+
+    @Nested
+    inner class FinishedNotes {
+        @Test
+        fun `marking finished a note that does not exist returns false`(){
+            assertFalse(populatedNotes!!.finishNote(6))
+            assertFalse(populatedNotes!!.finishNote(-1))
+            assertFalse(emptyNotes!!.finishNote(0))
+        }
+
+        @Test
+        fun `marking as finished an already finished note returns false`(){
+            assertTrue(populatedNotes!!.findNote(2)!!.isNoteFinished)
+            assertFalse(populatedNotes!!.finishNote(2))
+        }
+
+        @Test
+        fun `finishing an active note that exists returns true and finishes`() {
+            assertFalse(populatedNotes!!.findNote(1)!!.isNoteFinished)
+            assertTrue(populatedNotes!!.finishNote(1))
+            assertTrue(populatedNotes!!.findNote(1)!!.isNoteFinished)
         }
     }
 

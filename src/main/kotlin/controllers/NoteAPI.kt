@@ -22,7 +22,7 @@ class NoteAPI(serializerType: Serializer) {
 
     fun listActiveNotes(): String =
         if  (numberOfActiveNotes() == 0)  "No active notes stored"
-        else formatListString(notes.filter { note -> !note.isNoteArchived || !note.isNoteFinished})
+        else formatListString(notes.filter { note -> !note.isNoteArchived})
 
     fun listFavouritedNotes(): String =
         if  (numberOfFavouritedNotes() == 0)  "No favourited notes stored"

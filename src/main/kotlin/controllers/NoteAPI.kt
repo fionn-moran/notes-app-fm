@@ -129,6 +129,17 @@ class NoteAPI(serializerType: Serializer) {
         return false
     }
 
+    fun finishNote(indexToFinish: Int): Boolean {
+        if (isValidIndex(indexToFinish)) {
+            val noteToFinish = notes[indexToFinish]
+            if (!noteToFinish.isNoteFinished) {
+                noteToFinish.isNoteFinished = true
+                return true
+            }
+        }
+        return false
+    }
+
     fun searchByTitle (searchString : String) =
         formatListString(
             notes.filter { note -> note.noteTitle.contains(searchString, ignoreCase = true) })

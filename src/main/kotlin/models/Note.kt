@@ -7,7 +7,8 @@ data class Note(
     var noteBody: String,
     var noteDate: String,
     var isNoteArchived: Boolean,
-    var isNoteFavourited: Boolean
+    var isNoteFavourited: Boolean,
+    var isNoteFinished: Boolean
 )
 {
 }

@@ -34,6 +34,7 @@ fun mainMenu() : Int {
          > |   5) Archive Note              |
          > |   6) Search for Note           |
          > |   7) Favourite a Note          |
+         > |   8) Finish Note               |
          > ----------------------------------
          > |  20) Save Notes                |
          > |  21) Load Notes                |
@@ -53,6 +54,7 @@ fun runMenu() {
             5 -> archiveNote()
             6 -> searchNotes()
             7 -> favouriteNote()
+            8 -> finishNote()
             20 -> save()
             21 -> load()
             0 -> exitApp()
@@ -67,7 +69,7 @@ fun addNote(){
     val noteCategory = readNextLine("Enter a category for the note: ")
     val noteBody = readNextLine("Enter your note: ")
     val noteDate = readNextLine("Enter the note date: ")
-    val isAdded = noteAPI.add(Note(noteTitle, notePriority, noteCategory, noteBody, noteDate, false, false))
+    val isAdded = noteAPI.add(Note(noteTitle, notePriority, noteCategory, noteBody, noteDate, false, false, false))
 
     if (isAdded) {
         println("Added Successfully")
@@ -85,6 +87,7 @@ fun listNotes() {
                   > |   2) View ACTIVE notes       |
                   > |   3) View ARCHIVED notes     |
                   > |   4) List FAVOURITED notes   |
+                  > |   5) List FINISHED notes     |
                   > --------------------------------
          > ==>> """.trimMargin(">"))
 
@@ -92,7 +95,8 @@ fun listNotes() {
             1 -> listAllNotes();
             2 -> listActiveNotes();
             3 -> listArchivedNotes();
-            4 -> listFavouritedNotes()
+            4 -> listFavouritedNotes();
+            5 -> listFinishedNotes();
             else -> println("Invalid option entered: " + option);
         }
     } else {
@@ -113,7 +117,7 @@ fun updateNote() {
             val noteBody = readNextLine("Enter your note: ")
             val noteDate = readNextLine("Enter the note date: ")
             //pass the index of the note and the new note details to NoteAPI for updating and check for success.
-            if (noteAPI.updateNote(indexToUpdate, Note(noteTitle, notePriority, noteCategory, noteBody, noteDate, false, false))){
+            if (noteAPI.updateNote(indexToUpdate, Note(noteTitle, notePriority, noteCategory, noteBody, noteDate, false, false, false))){
                 println("Update Successful")
             } else {
                 println("Update Failed")
@@ -157,6 +161,11 @@ fun listFavouritedNotes() {
     println(noteAPI.listFavouritedNotes())
 }
 
+fun listFinishedNotes() {
+    //logger.info { "listArchivedNotes() function invoked" }
+    println(noteAPI.listFinishedNotes())
+}
+
 fun save() {
     try {
         noteAPI.store()
@@ -197,6 +206,20 @@ fun favouriteNote() {
             println("Your note has been favourited!")
         } else {
             println("Unfortunately your note has not been favourited!")
+        }
+    }
+}
+
+fun finishNote() {
+    listActiveNotes()
+    if (noteAPI.numberOfActiveNotes() > 0) {
+        //only ask the user to choose the note to mark as finished if at least 1 active note exists
+        val indexToFinish = readNextInt("Enter the index of the note to mark as finished: ")
+        //pass the index of the note to NoteAPI and check for success.
+        if (noteAPI.finishNote(indexToFinish)) {
+            println("Your note has been marked as finished!")
+        } else {
+            println("Unfortunately your note has not been marked as finished!")
         }
     }
 }

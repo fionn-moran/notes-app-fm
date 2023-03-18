@@ -8,6 +8,7 @@
       <noteDate>12/3/2023</noteDate>
       <isNoteArchived>false</isNoteArchived>
       <isNoteFavourited>false</isNoteFavourited>
+      <isNoteFinished>false</isNoteFinished>
     </models.Note>
     <models.Note>
       <noteTitle>Swim - Pool</noteTitle>
@@ -17,6 +18,7 @@
       <noteDate>1/5/2023</noteDate>
       <isNoteArchived>true</isNoteArchived>
       <isNoteFavourited>true</isNoteFavourited>
+      <isNoteFinished>true</isNoteFinished>
     </models.Note>
     <models.Note>
       <noteTitle>Summer Holiday to France</noteTitle>
@@ -26,6 +28,7 @@
       <noteDate>10/6/2022</noteDate>
       <isNoteArchived>false</isNoteArchived>
       <isNoteFavourited>false</isNoteFavourited>
+      <isNoteFinished>false</isNoteFinished>
     </models.Note>
   </list>
 </object-stream>

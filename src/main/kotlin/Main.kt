@@ -27,11 +27,12 @@ fun mainMenu() : Int {
          > |        NOTE KEEPER APP         |
          > ----------------------------------
          > | NOTE MENU                      |
-         > |   1) Add a note                 |
+         > |   1) Add a note                |
          > |   2) List Notes                |
          > |   3) Update a note             |
          > |   4) Delete a note             |
          > |   5) Archive Note              |
+         > |   6) Search for Note           |
          > ----------------------------------
          > |  20) Save Notes                |
          > |  21) Load Notes                |
@@ -49,6 +50,7 @@ fun runMenu() {
             3 -> updateNote()
             4 -> deleteNote()
             5 -> archiveNote()
+            6 -> searchNotes()
             20 -> save()
             21 -> load()
             0 -> exitApp()
@@ -175,6 +177,16 @@ fun archiveNote() {
 
 fun listAllNotes() {
     println(noteAPI.listAllNotes())
+}
+
+fun searchNotes() {
+    val searchTitle = readNextLine("Enter the desc to search by: ")
+    val searchResults = noteAPI.searchByTitle(searchTitle)
+    if (searchResults.isEmpty()) {
+        println("No notes found")
+    } else {
+        println(searchResults)
+    }
 }
 
 fun exitApp() {

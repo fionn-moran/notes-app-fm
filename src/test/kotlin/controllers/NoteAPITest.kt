@@ -159,7 +159,7 @@ class NoteAPITest {
         }
 
         @Test
-        fun `listFinishedNotes returns finished notes when ArrayList has favourited notes stored`() {
+        fun `listFinishedNotes returns finished notes when ArrayList has finished notes stored`() {
             assertEquals(2, populatedNotes!!.numberOfFinishedNotes())
             val finishedNotesString = populatedNotes!!.listFinishedNotes().lowercase(Locale.getDefault())
             assertFalse(finishedNotesString.contains("learning kotlin"))

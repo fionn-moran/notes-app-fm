@@ -187,6 +187,11 @@ class NoteAPI(serializerType: Serializer) {
         formatListString(
             notes.filter { note -> note.noteTitle.contains(searchString, ignoreCase = true) })
 
+    // searches for input text in note titles
+    fun searchByCategory (searchString : String) =
+        formatListString(
+            notes.filter { note -> note.noteCategory.contains(searchString, ignoreCase = true) })
+
 
     // helper function formats list of notes and returns as string
     private fun formatListString(notesToFormat : List<Note>) : String =

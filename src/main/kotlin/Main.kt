@@ -34,10 +34,11 @@ fun mainMenu() : Int {
          > |   7) Finish Note               |
          > ---------------------------------- 
          > | Search Options                 |
-         > |   8) Search for Note           |
+         > |   8) Search for Note by title  |
+         > |   9) Search By Category        |
          > ----------------------------------
          > | Count Options                  |
-         > |   9) Count Notes (Open Submenu)|
+         > |  10) Count Notes (Open Submenu)|
          > ----------------------------------
          > | Persistence / Exit             |
          > |  20) Save Notes                |
@@ -59,7 +60,8 @@ fun runMenu() {
             6 -> favouriteNote()
             7 -> finishNote()
             8 -> searchNotes()
-            9 -> countingNotes()
+            9 -> searchNotesByCategory()
+            10 -> countingNotes()
             20 -> save()
             21 -> load()
             0 -> exitApp()
@@ -248,6 +250,17 @@ fun listAllNotes() {
 fun searchNotes() {
     val searchTitle = readNextLine("Enter the title to search by: ")
     val searchResults = noteAPI.searchByTitle(searchTitle)
+    if (searchResults.isEmpty()) {
+        println("No notes found")
+    } else {
+        println(searchResults)
+    }
+}
+
+// search for notes via categories
+fun searchNotesByCategory() {
+    val searchCategory = readNextLine("Enter the category to search by: ")
+    val searchResults = noteAPI.searchByCategory(searchCategory)
     if (searchResults.isEmpty()) {
         println("No notes found")
     } else {

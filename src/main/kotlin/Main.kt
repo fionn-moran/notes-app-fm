@@ -270,13 +270,18 @@ fun searchNotes() {
 // COUNTING IN MENU
 
 fun countByCategory() {
+    val category = readNextLine("Enter the category to count: ")
+    println(noteAPI.numberOfNotesByCategory(category))
 }
 
 fun countByPriority() {
-
+    val priority = readNextInt("Enter the priority number to count: ")
+    println(noteAPI.numberOfNotesByPriority(priority))
 }
 
 fun countByTitle() {
+    val title = readNextLine("Enter the title to count: ")
+    println(noteAPI.numberOfNotesByTitle(title))
 }
 
 fun countAllNotes() {

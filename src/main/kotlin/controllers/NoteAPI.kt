@@ -99,6 +99,10 @@ class NoteAPI(serializerType: Serializer) {
             note: Note -> note.noteCategory == category
     }
 
+    fun numberOfNotesByTitle(title: String): Int = notes.count {
+            note: Note -> note.noteTitle == title
+    }
+
     // deletes a specific note from notes list
     fun deleteNote(indexToDelete: Int): Note? {
         return if (isValidListIndex(indexToDelete, notes)) {

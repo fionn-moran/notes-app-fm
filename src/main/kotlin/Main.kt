@@ -36,6 +36,10 @@ fun mainMenu() : Int {
          > |   7) Favourite a Note          |
          > |   8) Finish Note               |
          > ----------------------------------
+         > |   9) Count Notes by Priority   |
+         > |  10) Count Notes by Category   |
+         > |  11) Count Notes by title      |
+         > ----------------------------------
          > |  20) Save Notes                |
          > |  21) Load Notes                |
          > |   0) Exit                      |
@@ -55,6 +59,9 @@ fun runMenu() {
             6 -> searchNotes()
             7 -> favouriteNote()
             8 -> finishNote()
+            9 -> countByPriority()
+            10 -> countByCategory()
+            11 -> countByTitle()
             20 -> save()
             21 -> load()
             0 -> exitApp()

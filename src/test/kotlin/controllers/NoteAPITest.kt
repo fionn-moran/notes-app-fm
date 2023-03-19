@@ -440,6 +440,25 @@ class NoteAPITest {
             assertEquals(1, populatedNotes!!.numberOfNotesByPriority(5))
             assertEquals(0, emptyNotes!!.numberOfNotesByPriority(1))
         }
+
+        @Test
+        fun numberOfNotesByCategoryCalculatedCorrectly() {
+            assertEquals(1, populatedNotes!!.numberOfNotesByCategory("College"))
+            assertEquals(1, populatedNotes!!.numberOfNotesByCategory("Holiday"))
+            assertEquals(2, populatedNotes!!.numberOfNotesByCategory("Work"))
+            assertEquals(1, populatedNotes!!.numberOfNotesByCategory("Hobby"))
+            assertEquals(0, emptyNotes!!.numberOfNotesByCategory("Work"))
+        }
+
+        @Test
+        fun numberOfNotesByTitleCalculatedCorrectly() {
+            assertEquals(1, populatedNotes!!.numberOfNotesByTitle("Learning Kotlin"))
+            assertEquals(1, populatedNotes!!.numberOfNotesByTitle("Summer Holiday to France"))
+            assertEquals(1, populatedNotes!!.numberOfNotesByTitle("Code App"))
+            assertEquals(1, populatedNotes!!.numberOfNotesByTitle("Test App"))
+            assertEquals(1, populatedNotes!!.numberOfNotesByTitle("Swim - Pool"))
+            assertEquals(0, emptyNotes!!.numberOfNotesByTitle("Learning Kotlin"))
+        }
     }
 
     @Nested

@@ -36,6 +36,8 @@ fun mainMenu() : Int {
          > |   7) Favourite a Note          |
          > |   8) Finish Note               |
          > ----------------------------------
+         > |   9) Count Notes (Open Submenu)|
+         > ----------------------------------
          > |  20) Save Notes                |
          > |  21) Load Notes                |
          > |   0) Exit                      |
@@ -55,6 +57,7 @@ fun runMenu() {
             6 -> searchNotes()
             7 -> favouriteNote()
             8 -> finishNote()
+            9 -> countingNotes()
             20 -> save()
             21 -> load()
             0 -> exitApp()
@@ -250,6 +253,72 @@ fun searchNotes() {
     }
 }
 
+// COUNTING IN MENU
+
+fun countingNotes() {
+    if (noteAPI.numberOfNotes() > 0) {
+        val option = readNextInt(
+            """
+                  > --------------------------------
+                  > |   1) Count ALL notes          |
+                  > |   2) Count ACTIVE notes       |
+                  > |   3) Count ARCHIVED notes     |
+                  > |   4) Count FAVOURITED notes   |
+                  > |   5) Count FINISHED notes     |
+                  > |   6) Count by Note Priority   |
+                  > |   7) Count by Note Category   |
+                  > |   8) Count by Note Title      |
+                  > --------------------------------
+         > ==>> """.trimMargin(">"))
+
+        when (option) {
+            1 -> countAllNotes()
+            2 -> countActiveNotes()
+            3 -> countArchivedNotes()
+            4 -> countFavouritedNotes()
+            5 -> countFinishedNotes()
+            6 -> countByPriority()
+            7 -> countByCategory()
+            8 -> countByTitle()
+            else -> println("Invalid option entered: " + option);
+        }
+    } else {
+        println("Option Invalid - No notes stored");
+    }
+}
+
+fun countByCategory() {
+    val category = readNextLine("Enter the category to count: ")
+    println(noteAPI.numberOfNotesByCategory(category))
+}
+
+fun countByPriority() {
+    val priority = readNextInt("Enter the priority number to count: ")
+    println(noteAPI.numberOfNotesByPriority(priority))
+}
+
+fun countByTitle() {
+    val title = readNextLine("Enter the title to count: ")
+    println(noteAPI.numberOfNotesByTitle(title))
+}
+
+fun countAllNotes() {
+    println(noteAPI.numberOfNotes())
+}
+fun countActiveNotes() {
+    println(noteAPI.numberOfArchivedNotes())
+}
+
+fun countArchivedNotes() {
+    println(noteAPI.numberOfArchivedNotes())
+}
+
+fun countFavouritedNotes() {
+    println(noteAPI.numberOfFavouritedNotes())
+}
+fun countFinishedNotes() {
+    println(noteAPI.numberOfFinishedNotes())
+}
 // Closes app
 fun exitApp() {
     logger.info { "exitApp() function invoked" }

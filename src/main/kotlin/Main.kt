@@ -26,18 +26,24 @@ fun mainMenu() : Int {
          > ----------------------------------
          > |        NOTE KEEPER APP         |
          > ----------------------------------
-         > | NOTE MENU                      |
+         > | CRUD Options                   |
          > |   1) Add a note                |
          > |   2) List Notes                |
          > |   3) Update a note             |
          > |   4) Delete a note             |
-         > |   5) Archive Note              |
-         > |   6) Search for Note           |
-         > |   7) Favourite a Note          |
-         > |   8) Finish Note               |
          > ----------------------------------
+         > | Note Labelling Options         |
+         > |   5) Archive Note              |
+         > |   6) Favourite a Note          |
+         > |   7) Finish Note               |
+         > ---------------------------------- 
+         > | Search Options                 |
+         > |   6) Search for Note           |
+         > ----------------------------------
+         > | Count Options                  |
          > |   9) Count Notes (Open Submenu)|
          > ----------------------------------
+         > | Persistence / Exit             |
          > |  20) Save Notes                |
          > |  21) Load Notes                |
          > |   0) Exit                      |

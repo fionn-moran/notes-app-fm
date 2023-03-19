@@ -38,7 +38,7 @@ fun mainMenu() : Int {
          > |   7) Finish Note               |
          > ---------------------------------- 
          > | Search Options                 |
-         > |   6) Search for Note           |
+         > |   8) Search for Note           |
          > ----------------------------------
          > | Count Options                  |
          > |   9) Count Notes (Open Submenu)|
@@ -60,9 +60,9 @@ fun runMenu() {
             3 -> updateNote()
             4 -> deleteNote()
             5 -> archiveNote()
-            6 -> searchNotes()
-            7 -> favouriteNote()
-            8 -> finishNote()
+            6 -> favouriteNote()
+            7 -> finishNote()
+            8 -> searchNotes()
             9 -> countingNotes()
             20 -> save()
             21 -> load()

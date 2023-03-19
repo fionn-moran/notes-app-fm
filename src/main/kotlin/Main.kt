@@ -63,6 +63,7 @@ fun runMenu() {
     } while (true)
 }
 
+// Using user's input data, a note is added to NoteAPI
 fun addNote(){
     val noteTitle = readNextLine("Enter a title for the note: ")
     val notePriority = readNextInt("Enter a priority (1-low, 2, 3, 4, 5-high): ")
@@ -78,6 +79,7 @@ fun addNote(){
     }
 }
 
+// list notes according to the user's input selection
 fun listNotes() {
     if (noteAPI.numberOfNotes() > 0) {
         val option = readNextInt(
@@ -104,6 +106,7 @@ fun listNotes() {
     }
 }
 
+// Update a current note
 fun updateNote() {
     //logger.info { "updateNotes() function invoked" }
     listNotes()
@@ -128,7 +131,7 @@ fun updateNote() {
     }
 }
 
-
+// delete a specific note by index
 fun deleteNote(){
     //logger.info { "deleteNotes() function invoked" }
     listNotes()
@@ -145,27 +148,31 @@ fun deleteNote(){
     }
 }
 
-
+// list all active notes
 fun listActiveNotes() {
     //logger.info { "listActiveNotes() function invoked" }
     println(noteAPI.listActiveNotes())
 }
 
+// list all archived notes
 fun listArchivedNotes() {
     //logger.info { "listArchivedNotes() function invoked" }
     println(noteAPI.listArchivedNotes())
 }
 
+// list all favourited notes
 fun listFavouritedNotes() {
     //logger.info { "listArchivedNotes() function invoked" }
     println(noteAPI.listFavouritedNotes())
 }
 
+// list all notes marked as finished
 fun listFinishedNotes() {
     //logger.info { "listArchivedNotes() function invoked" }
     println(noteAPI.listFinishedNotes())
 }
 
+// calls store() function and saves notes file
 fun save() {
     try {
         noteAPI.store()
@@ -174,6 +181,7 @@ fun save() {
     }
 }
 
+// calls load() function and reads from saved notes file
 fun load() {
     try {
         noteAPI.load()
@@ -182,6 +190,7 @@ fun load() {
     }
 }
 
+// mark selected note as archived
 fun archiveNote() {
     listActiveNotes()
     if (noteAPI.numberOfActiveNotes() > 0) {
@@ -196,6 +205,7 @@ fun archiveNote() {
     }
 }
 
+// mark selected note as favourite
 fun favouriteNote() {
     listAllNotes()
     if (noteAPI.numberOfNotes() > 0) {
@@ -210,6 +220,7 @@ fun favouriteNote() {
     }
 }
 
+// mark selected note as finished
 fun finishNote() {
     listActiveNotes()
     if (noteAPI.numberOfActiveNotes() > 0) {
@@ -228,6 +239,7 @@ fun listAllNotes() {
     println(noteAPI.listAllNotes())
 }
 
+// search for notes via titles
 fun searchNotes() {
     val searchTitle = readNextLine("Enter the title to search by: ")
     val searchResults = noteAPI.searchByTitle(searchTitle)
@@ -238,6 +250,7 @@ fun searchNotes() {
     }
 }
 
+// Closes app
 fun exitApp() {
     logger.info { "exitApp() function invoked" }
     exit(0)

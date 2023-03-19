@@ -49,6 +49,15 @@ class NoteAPI(serializerType: Serializer) {
             else "${numberOfNotesByPriority(priority)} notes with priority $priority: $listOfNotes"
         }
 
+    // lists all notes based on a specific category
+    fun listNotesBySelectedCategory(category: String): String =
+        if (notes.isEmpty()) "No notes stored"
+        else {
+            val listOfNotes = formatListString(notes.filter{ note -> note.noteCategory == category})
+            if (listOfNotes.equals("")) "No notes with category: $category"
+            else "${numberOfNotesByCategory(category)} notes with category $category: $listOfNotes"
+        }
+
     // Counts the total number of all notes
     fun numberOfNotes(): Int {
         return notes.size
@@ -84,6 +93,10 @@ class NoteAPI(serializerType: Serializer) {
     // Counts the total number of all notes with a specific priority number
     fun numberOfNotesByPriority(priority: Int): Int = notes.count {
         note: Note -> note.notePriority == priority
+    }
+
+    fun numberOfNotesByCategory(category: String): Int = notes.count {
+            note: Note -> note.noteCategory == category
     }
 
     // deletes a specific note from notes list

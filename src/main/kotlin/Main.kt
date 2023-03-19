@@ -39,6 +39,11 @@ fun mainMenu() : Int {
          > |   9) Count Notes by Priority   |
          > |  10) Count Notes by Category   |
          > |  11) Count Notes by title      |
+         > |  12) Count All Notes           |
+         > |  13) count Active Notes        |
+         > |  14) Count Archived Notes      |
+         > |  15) Count favourited Notes    |
+         > |  16) Count Finished Notes      |
          > ----------------------------------
          > |  20) Save Notes                |
          > |  21) Load Notes                |
@@ -62,6 +67,11 @@ fun runMenu() {
             9 -> countByPriority()
             10 -> countByCategory()
             11 -> countByTitle()
+            12 -> countAllNotes()
+            13 -> countActiveNotes()
+            14 -> countArchivedNotes()
+            15 -> countFavouritedNotes()
+            16 -> countFinishedNotes()
             20 -> save()
             21 -> load()
             0 -> exitApp()
@@ -257,6 +267,35 @@ fun searchNotes() {
     }
 }
 
+// COUNTING IN MENU
+
+fun countByCategory() {
+}
+
+fun countByPriority() {
+
+}
+
+fun countByTitle() {
+}
+
+fun countAllNotes() {
+    println(noteAPI.numberOfNotes())
+}
+fun countActiveNotes() {
+    println(noteAPI.numberOfArchivedNotes())
+}
+
+fun countArchivedNotes() {
+    println(noteAPI.numberOfArchivedNotes())
+}
+
+fun countFavouritedNotes() {
+    println(noteAPI.numberOfFavouritedNotes())
+}
+fun countFinishedNotes() {
+    println(noteAPI.numberOfFinishedNotes())
+}
 // Closes app
 fun exitApp() {
     logger.info { "exitApp() function invoked" }
